@@ -1,6 +1,6 @@
 #! usr/bin/python
 #coding=utf-8 
-import os, requests, math, re
+import os, threading, requests, math, re, random
 
 
 # Configuration Start
@@ -48,7 +48,7 @@ def get_album_photos_url(page):
 		'lastMid':TEMP_LastMid,
 		'lang':'zh-cn',
 		'_t':1,
-		'callback':'STK_144764126991079'
+		'callback':'STK_' + str(random.randint(10000000000000, 900000000000000))
 	}
 	#print(data)
 	#print(COOKIES)
@@ -58,7 +58,12 @@ def get_album_photos_url(page):
 	print(TEMP_LastMid)
 	return (re.compile(r'(\w+.png|\w+.gif|\w+.jpg)').findall(album_request_result))
 
-
-for i in range(1, int(math.ceil(CRAWL_PHOTOS_NUMBER / 20.0))):
-	for image_name in get_album_photos_url(i):
-		save_image(image_name);
+if __name__ == '__main__':
+	for i in range(1, int(math.ceil(CRAWL_PHOTOS_NUMBER / 20.0))):
+		threads = []
+		for image_name in get_album_photos_url(i):
+			#save_image(image_name);
+			threads.append(threading.Thread(target=save_image, args=(image_name,)))
+		for t in threads:
+			#t.setDaemon(True)
+			t.start()
