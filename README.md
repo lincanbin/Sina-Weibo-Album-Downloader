@@ -1,5 +1,5 @@
 # Sina-Weibo-Album-Downloader    [![Build Status](https://travis-ci.org/lincanbin/Sina-Weibo-Album-Downloader.svg?branch=master)](https://travis-ci.org/lincanbin/Sina-Weibo-Album-Downloader)
-Download all HD photos / pictures from someone's Sina Weibo album. (Python 3)
+Multithreading download all HD photos / pictures from someone's Sina Weibo album. (Python 3)
 
 Dependencies
 ------------
